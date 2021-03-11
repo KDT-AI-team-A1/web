@@ -4,18 +4,11 @@
 
 기능 구현 해두었습니다. 현재위치 기반으로 가까운 약국 및 편의점 검색 가능합니다
 
-### installation
-
-1. git clone
-2. python manage.py runserver
-3. localhost:8000/map
-
-
 ## WebCam Capture
 
 1. git clone
 2. python manage.py runserver
-3. localhost:8000/map
+3. 127.0.0.1:8000
 4. 버튼 누르면 카메라 캡쳐 후 capture_img 폴더에 저장 (얼굴 인식 or not)
 5. 캡쳐는 그대로 원래 위치기반 편의점 검색으로 redirect
 6. 얼굴 인식은 인식 되면 5장 캡쳐된 것 보여주기 ( 인식 안되면 그대로 멈춰있기 - 마스크 착용시 인식못함 )
