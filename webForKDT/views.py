@@ -9,16 +9,10 @@ def index(request):
     return render(request, 'show_map.html')
 
 def webCapture():
-    cap = cv2.VideoCapture(0)
 
-    while(True):
-        ret, frame = cap.read()
-        cv2.imshow('frame_color', frame)
-
-        if cv2.waitKey(1) == ord('q'):
-            break
-
-    cap.release()
-    cv2.destroyAllWindows()
+    cam = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+    ret, frame = cam.read()
+    cv2.imwrite('capture_img/test.png',frame, params=[cv2.IMWRITE_PNG_COMPRESSION,0])
+    cam.release()
 
     return
