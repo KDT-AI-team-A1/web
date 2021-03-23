@@ -20,6 +20,6 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name="index"),
-    path('show_map', views.webCapture1),
-    path('face_rec', views.webCapture),
+    path('show_map', views.webCapture_basic),
+    path('face_rec', views.webCapture_withFaceRecog),
 ]

@@ -1,11 +1,27 @@
 from django.shortcuts import render
 import cv2
 import numpy as np
+import requests
 
 def index(request):
-    return render(request, 'index.html')
+    # 캡쳐화면 실행하는 부분
+    webCapture_basic()
+    '''
+    # torchserve로 이미지를 보내서 응답을 받는 부분
+    url = "torchserve url"
+    files = open('static/img/capture_img/test.png', 'rb').read()
+    r = requests.post(url, data= files)
 
-def webCapture1(request):
+    # 받아온 응답을 파싱해서 렌더링하는 부분
+    if r['키 이름'] == False:
+    '''
+    return render(request, 'show_map.html')
+    '''
+    else:
+        return render(request, 'alert.html')
+    '''
+
+def webCapture_basic():
     cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
     count = 0
 
@@ -15,16 +31,25 @@ def webCapture1(request):
         count += 1
         file_name_path = 'static/img/capture_img/test'+str(count)+'.png'
         cv2.imwrite(file_name_path,frame, params=[cv2.IMWRITE_PNG_COMPRESSION,0])
+        cv2.imshow("VideoFrame", frame)
 
-        if count==5:
+        if count==3:
             break
 
     cap.release()
     cv2.destroyAllWindows()
 
-    return render(request, 'show_map.html')
+    return
 
-def webCapture(request):
+def webCapture_withFaceRecog(request):
+    pass
+
+'''
+###################################
+# 얼굴 인식 시 캡쳐할 수 있는 함수 #
+# cv2 CascadeClassifier 사용      #
+###################################
+def webCapture_withFaceRecog(request):
     # 카메라 실행 
     cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
     count = 0
@@ -61,9 +86,9 @@ def webCapture(request):
     if count != 5:
         return render(request, 'index.html')
 
-    return render(request, 'face_rec.html')
+    return
 
-#전체 사진에서 얼굴 부위만 잘라 리턴
+# 전체 사진에서 얼굴 부위만 잘라 리턴
 def face_extractor(img):
     # 얼굴 인식용 xml 파일 
     face_classifier = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
@@ -79,3 +104,4 @@ def face_extractor(img):
         cropped_face = img[y:y+h, x:x+w]
     # cropped_face 리턴 
     return cropped_face
+'''
