@@ -4,24 +4,9 @@ import numpy as np
 import requests
 
 def index(request):
-    # 캡쳐화면 실행하는 부분
-    webCapture_basic()
-    '''
-    # torchserve로 이미지를 보내서 응답을 받는 부분
-    url = "torchserve url"
-    files = open('static/img/capture_img/test.png', 'rb').read()
-    r = requests.post(url, data= files)
+    return render(request, 'index.html')
 
-    # 받아온 응답을 파싱해서 렌더링하는 부분
-    if r['키 이름'] == False:
-    '''
-    return render(request, 'show_map.html')
-    '''
-    else:
-        return render(request, 'alert.html')
-    '''
-
-def webCapture_basic():
+def webCapture_basic(request):
     cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
     count = 0
 
@@ -39,10 +24,20 @@ def webCapture_basic():
     cap.release()
     cv2.destroyAllWindows()
 
-    return
+    '''
+    # torchserve로 이미지를 보내서 응답을 받는 부분
+    url = "torchserve url"
+    files = open('static/img/capture_img/test.png', 'rb').read()
+    r = requests.post(url, data= files)
 
-def webCapture_withFaceRecog(request):
-    pass
+    # 받아온 응답을 파싱해서 렌더링하는 부분
+    if r['키 이름'] == False:
+    '''
+    return render(request, 'show_map.html')
+    '''
+    else:
+        return render(request, 'alert.html')
+    '''
 
 '''
 ###################################
