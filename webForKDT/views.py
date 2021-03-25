@@ -3,6 +3,8 @@ import cv2
 import numpy as np
 import requests
 
+BREAKCOUNT = 1
+
 def index(request):
     return render(request, 'index.html')
 
@@ -14,30 +16,29 @@ def webCapture_basic(request):
     # 카메라로 부터 사진 1장 얻기 
         ret, frame = cap.read()
         count += 1
-        file_name_path = 'static/img/capture_img/test'+str(count)+'.png'
+        file_name_path = 'static/img/capture_img/test'+str(count)+'.jpg'
         cv2.imwrite(file_name_path,frame, params=[cv2.IMWRITE_PNG_COMPRESSION,0])
         cv2.imshow("VideoFrame", frame)
 
-        if count==3:
+        if count==BREAKCOUNT:
             break
 
     cap.release()
     cv2.destroyAllWindows()
 
-    '''
     # torchserve로 이미지를 보내서 응답을 받는 부분
-    url = "torchserve url"
-    files = open('static/img/capture_img/test.png', 'rb').read()
+    url = "http://3.36.161.101:8080/predictions/faster_rcnn"
+    files = open('static/img/capture_img/test1.jpg', 'rb').read()
     r = requests.post(url, data= files)
 
     # 받아온 응답을 파싱해서 렌더링하는 부분
-    if r['키 이름'] == False:
-    '''
-    return render(request, 'show_map.html')
-    '''
-    else:
+    result = r.json()
+    if 1 in result['classes']:                      # 마스크 안쓴 값 (1) 이 리스트에 있을 경우
+        return render(request, 'show_map.html')
+    elif len(result['classes']) == 0:               # 아무 얼굴도 인식이 안된 경우
+        return render(request, 'norecog.html')
+    else:                                           # 마스크를 썼을 경우
         return render(request, 'alert.html')
-    '''
 
 '''
 ###################################
