@@ -85,7 +85,7 @@
             </video>
         </div>
         <div style="text-align: center;">
-            <button class="snip1535" type="button" onclick="location.href='show_map'">Capture your face!</button>
+            <button class="snip1535" id="clicker">Capture your face!</button>
         </div>
     </div>
     </body>
@@ -103,10 +103,25 @@
           console.log("Something went wrong!");
         });
     }
+
+    document.getElementById('clicker').onclick = stop;
+
+    function stop(e) {
+      var stream = video.srcObject;
+      var tracks = stream.getTracks();
+
+      for (var i = 0; i < tracks.length; i++) {
+        var track = tracks[i];
+        track.stop();
+      }
+
+      video.srcObject = null;
+      window.location.href = 'show_map'
+    }
     
     $(".hover").mouseleave(
-    function() {
+      function() {
         $(this).removeClass("hover");
-    }
+      }
     );
 </script>
