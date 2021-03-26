@@ -10,15 +10,18 @@ def index(request):
     return render(request, 'index.html')
 
 def webCapture_basic(request):
-    cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+    cap = cv2.VideoCapture(-1)
     count = 0
 
     while True:
     # 카메라로 부터 사진 1장 얻기 
         ret, frame = cap.read()
+        if not ret:
+            break
+
         count += 1
         file_name_path = 'static/img/capture_img/test'+str(count)+'.jpg'
-        cv2.imwrite(file_name_path,frame, params=[cv2.IMWRITE_PNG_COMPRESSION,0])
+        cv2.imwrite(file_name_path, frame)
         cv2.imshow("VideoFrame", frame)
 
         if count==BREAKCOUNT:
