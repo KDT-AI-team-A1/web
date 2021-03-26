@@ -3,6 +3,7 @@ import cv2
 import numpy as np
 import requests
 
+# 몇 장 찍을 것인지 정하는 변수
 BREAKCOUNT = 1
 
 def index(request):

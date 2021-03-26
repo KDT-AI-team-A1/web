@@ -85,15 +85,15 @@
             </video>
         </div>
         <div style="text-align: center;">
-            <button class="snip1535" id="clicker">Capture your face!</button>
+            <button class="snip1535" id="clicker" onclick="location.href = 'show_map'">Capture your face!</button>
         </div>
     </div>
     </body>
 
 <script>
-
+    /*
     var video = document.querySelector("#videoElement");
-     
+    
     if (navigator.mediaDevices.getUserMedia) {
       navigator.mediaDevices.getUserMedia({ video: true })
         .then(function (stream) {
@@ -118,7 +118,7 @@
       video.srcObject = null;
       window.location.href = 'show_map'
     }
-    
+    */
     $(".hover").mouseleave(
       function() {
         $(this).removeClass("hover");
