@@ -21,5 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name="index"),
     path('index', views.index, name="index"),
-    path('show_map', views.webCapture_basic),
+    path('show_map', views.show_map, name="show_map"),
 ]

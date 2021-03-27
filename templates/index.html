@@ -9,7 +9,7 @@
         margin: 0;
         height: 100%;
     }
-    .snip1535 {
+    .btn1 {
         background-color: #c47135;
         border: none;
         color: #ffffff;
@@ -26,8 +26,8 @@
         text-transform: uppercase;
         font-weight: 700;
     }
-    .snip1535:before,
-    .snip1535:after {
+    .btn1:before,
+    .btn1:after {
         border-color: transparent;
         -webkit-transition: all 0.25s;
         transition: all 0.25s;
@@ -38,28 +38,28 @@
         position: absolute;
         width: 24px;
     }
-    .snip1535:before {
+    .btn1:before {
         border-color: #c47135;
         border-right-width: 2px;
         border-top-width: 2px;
         right: -5px;
         top: -5px;
     }
-    .snip1535:after {
+    .btn1:after {
         border-bottom-width: 2px;
         border-color: #c47135;
         border-left-width: 2px;
         bottom: -5px;
         left: -5px;
     }
-    .snip1535:hover,
-    .snip1535.hover {
+    .btn1:hover,
+    .btn1.hover {
         background-color: #c47135;
     }
-    .snip1535:hover:before,
-    .snip1535.hover:before,
-    .snip1535:hover:after,
-    .snip1535.hover:after {
+    .btn1:hover:before,
+    .btn1.hover:before,
+    .btn1:hover:after,
+    .btn1.hover:after {
         height: 100%;
         width: 100%;
     }
@@ -85,8 +85,11 @@
             </video>
         </div>
         <div style="text-align: center;">
-            <button class="snip1535" id="clicker">Capture your face!</button>		
+            <button class="btn1" id="clicker">Capture your face!</button>
         </div>
+        <canvas id="canvas" width="500" height="375"></canvas>
+        
+        <button class="btn1" onclick="location.href = 'show_map'">판별하기</button>
     </div>
     </body>
 
@@ -108,7 +111,7 @@
     var video = document.querySelector("#videoElement");
 
     document.getElementById("clicker").addEventListener("click", function() {
-      context.drawImage(video, 0, 0, 640, 480);
+      context.drawImage(video, 0, 0, 500, 375);
 
       // get image data as string
       const imageString = canvas.toDataURL();
