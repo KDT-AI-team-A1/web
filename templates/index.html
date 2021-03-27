@@ -103,20 +103,29 @@
         });
     }
 
-    document.getElementById('clicker').onclick = stop;
+    var canvas = document.getElementById('canvas');
+    var context = canvas.getContext('2d');
+    var video = document.querySelector("#videoElement");
 
-    function stop(e) {
-      var stream = video.srcObject;
-      var tracks = stream.getTracks();
+    document.getElementById("clicker").addEventListener("click", function() {
+      context.drawImage(video, 0, 0, 640, 480);
 
-      for (var i = 0; i < tracks.length; i++) {
-        var track = tracks[i];
-        track.stop();
-      }
+      // get image data as string
+      const imageString = canvas.toDataURL();
 
-      video.srcObject = null;
-      window.location.href = 'show_map'
-    }
+      // send image to server
+      fetch('/show_map', {
+        method: "POST",
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          imageString: imageString, 
+        }),
+      })
+    });
 
     $(".hover").mouseleave(
       function() {
