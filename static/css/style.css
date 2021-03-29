@@ -1,0 +1,210 @@
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 100;
+  src: url(https://fonts.gstatic.com/s/lato/v17/S6u-w4BMUTPHjxsIPx-oPCc.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 300;
+  src: url(https://fonts.gstatic.com/s/lato/v17/S6u_w4BMUTPHjxsI9w2_Gwfo.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/lato/v17/S6u8w4BMUTPHjxsAXC-v.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 700;
+  src: url(https://fonts.gstatic.com/s/lato/v17/S6u_w4BMUTPHjxsI5wq_Gwfo.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 900;
+  src: url(https://fonts.gstatic.com/s/lato/v17/S6u_w4BMUTPHjxsI3wi_Gwfo.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 100;
+  src: url(https://fonts.gstatic.com/s/lato/v17/S6u8w4BMUTPHh30AXC-v.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 300;
+  src: url(https://fonts.gstatic.com/s/lato/v17/S6u9w4BMUTPHh7USSwiPHA.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/lato/v17/S6uyw4BMUTPHjx4wWw.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  src: url(https://fonts.gstatic.com/s/lato/v17/S6u9w4BMUTPHh6UVSwiPHA.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 900;
+  src: url(https://fonts.gstatic.com/s/lato/v17/S6u9w4BMUTPHh50XSwiPHA.ttf) format('truetype');
+}
+/* COLOURS */
+/* END OF COLOURS */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+.web-title:hover,
+.office-title:hover,
+.back-web:hover,
+.back-office:hover {
+  cursor: pointer;
+}
+.office-title:hover {
+  background: rgb(240, 211, 177);
+}
+.web-title:hover,
+.back-web:hover,
+.back-office:hover {
+  background: #1f201f;
+}
+.web-title,
+.office-title {
+  width: 50%;
+  height: 100vh;
+  position: fixed;
+}
+.web-title {
+  background: #272928;
+  top: 0;
+  left: 0;
+  color: #efeff0;
+}
+.office-title {
+  background: bisque;
+  top: 0;
+  right: 0;
+  color: #272928;
+}
+.web-title h1,
+.office-title h1 {
+  text-align: center;
+  font-family: 'Lato';
+  font-weight: 100;
+  font-size: 5em;
+  line-height: 100vh;
+}
+.back-web,
+.back-office {
+  display: none;
+  position: fixed;
+  width: 10vh;
+  height: 10vh;
+  z-index: 9999;
+  background: rgb(165, 101, 42);
+  top: 2.5vh;
+  left: 2.5vh;
+  font-family: 'Lato';
+  font-weight: 100;
+  color: #efeff0;
+  text-align: center;
+  line-height: 15vh;
+  font-size: 3.5vh;
+}
+/* CONTENT BLOCKS */
+.web-content,
+.office-content {
+  display: none;
+  position: absolute;
+  top: 20vh;
+  min-height: 80vh;
+  z-index: -5;
+  width: 100%;
+  padding: 10%;
+}
+.web-content {
+  background: #353636;
+  color: #efeff0;
+}
+.office-content {
+  background: bisque;
+  color: #272928;
+}
+
+.btn1 {
+  background-color: #c47135;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: 'BenchNine', Arial, sans-serif;
+  font-size: 1em;
+  font-size: 22px;
+  line-height: 1em;
+  margin: 15px 40px;
+  outline: none;
+  padding: 12px 40px 10px;
+  position: relative;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.btn1:before,
+.btn1:after {
+  border-color: transparent;
+  -webkit-transition: all 0.25s;
+  transition: all 0.25s;
+  border-style: solid;
+  border-width: 0;
+  content: "";
+  height: 24px;
+  position: absolute;
+  width: 24px;
+}
+.btn1:before {
+  border-color: #c47135;
+  border-right-width: 2px;
+  border-top-width: 2px;
+  right: -5px;
+  top: -5px;
+}
+.btn1:after {
+  border-bottom-width: 2px;
+  border-color: #c47135;
+  border-left-width: 2px;
+  bottom: -5px;
+  left: -5px;
+}
+.btn1:hover,
+.btn1.hover {
+  background-color: #c47135;
+}
+.btn1:hover:before,
+.btn1.hover:before,
+.btn1:hover:after,
+.btn1.hover:after {
+  height: 100%;
+  width: 100%;
+}
+
+#container {
+  margin: 0px auto;
+  width: 500px;
+  height: 375px;
+  border: 10px #333 solid;
+}
+#videoElement {
+  width: 500px;
+  height: 375px;
+  background-color: #666;
+}
