@@ -1,9 +1,11 @@
 var video = document.querySelector("#videoElement");
-    
+var video2 = document.querySelector("#videoElement2");
+  
 if (navigator.mediaDevices.getUserMedia) {
   navigator.mediaDevices.getUserMedia({ video: true })
     .then(function (stream) {
       video.srcObject = stream;
+      video2.srcObject = stream;
     })
     .catch(function (err0r) {
       console.log("Something went wrong!");
@@ -18,11 +20,17 @@ document.getElementById("clicker1").addEventListener("click", function() {
 });
 
 document.getElementById("clicker2").addEventListener("click", function() {
+  var url = "show_map";
+  sendImg(canvas, url);
+  window.location.href = url
+});
+
+function sendImg(canvas, url) {
   // get image data as string
   const imageString = canvas.toDataURL();
 
   // send image to server
-  fetch('/show_map', {
+  return fetch('/' + url, {
     method: "POST",
     cache: "no-cache",
     credentials: "same-origin",
@@ -30,10 +38,42 @@ document.getElementById("clicker2").addEventListener("click", function() {
         "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      imageString: imageString, 
+      imageString: imageString,
     }),
   })
-  window.location.href = "show_map"
+    .then((response) => console.log("response:", response.json()))
+    .catch((error) => console.log("error:", error))
+}
+
+var canvas2 = document.getElementById('canvas2');
+var context2 = canvas2.getContext('2d');
+var video2 = document.querySelector("#videoElement2");
+var captureTime = 3000;
+
+document.getElementById("clicker3").addEventListener("click", function() {
+  startAlert = setInterval(function() {
+    context2.drawImage(video2, 0, 0, 500, 375);
+
+    const imageString = canvas2.toDataURL();
+
+    var url = 'alert_no_mask';
+    $.post('/'+url,
+          JSON.stringify({imageString: imageString}),
+          function(data){
+            console.log(data);
+            if (data.isAlert) {
+              alert("마스크 미착용 안내방송")
+            }
+          },
+          "json"
+    );
+  }, captureTime);
+
+});
+
+document.getElementById("clicker4").addEventListener("click", function() {
+  alert('종료');
+  clearInterval(startAlert);
 });
 
 async function uploadFile() {
