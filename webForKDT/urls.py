@@ -22,4 +22,5 @@ urlpatterns = [
     path('', views.index, name="index"),
     path('index', views.index, name="index"),
     path('show_map', views.show_map, name="show_map"),
+    path('savevideo', views.savevideo, name="savevideo"),
 ]

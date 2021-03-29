@@ -1,3 +1,54 @@
+var video = document.querySelector("#videoElement");
+    
+if (navigator.mediaDevices.getUserMedia) {
+  navigator.mediaDevices.getUserMedia({ video: true })
+    .then(function (stream) {
+      video.srcObject = stream;
+    })
+    .catch(function (err0r) {
+      console.log("Something went wrong!");
+    });
+}
+var canvas = document.getElementById('canvas');
+var context = canvas.getContext('2d');
+var video = document.querySelector("#videoElement");
+
+document.getElementById("clicker1").addEventListener("click", function() {
+  context.drawImage(video, 0, 0, 500, 375);
+});
+
+document.getElementById("clicker2").addEventListener("click", function() {
+  // get image data as string
+  const imageString = canvas.toDataURL();
+
+  // send image to server
+  fetch('/show_map', {
+    method: "POST",
+    cache: "no-cache",
+    credentials: "same-origin",
+    headers: {
+        "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      imageString: imageString, 
+    }),
+  })
+  window.location.href = "show_map"
+});
+
+async function uploadFile() {
+  let formData = new FormData();           
+  formData.append("file", fileupload.files[0]);
+  await fetch('/savevideo', {
+    method: "POST", 
+    cache: "no-cache",
+    credentials: "same-origin",
+    body: formData
+  });    
+  alert('The file has been uploaded successfully.');
+  window.location.href = "savevideo"
+}
+
 var webTitle          = $(".web-title");
 var webTitleText      = $(".web-title h1");
 var webContent        = $(".web-content");

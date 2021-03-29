@@ -29,3 +29,10 @@ def show_map(request):
         return render(request, 'norecog.html')
     else:                                           # 마스크를 썼을 경우
         return render(request, 'alert.html')
+
+def savevideo(request):
+    if request.method == "POST":
+        file_name_path = os.path.join(settings.STATICFILES_DIRS[0], 'img/capture_img/test1.mp4')
+        with open(file_name_path, 'wb') as f:
+            f.write(request.FILES['file'].read())
+    return render(request, 'index.html')

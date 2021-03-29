@@ -22,16 +22,13 @@
 <div class="web-content">
   <div>
     <div id="container">
-      <video autoplay="true" id="videoElement">
-      
-      </video>
+      <video autoplay="true" id="videoElement"></video>
     </div>
     <div style="text-align: center; margin-top: 20px;">
       <button class="btn1" id="clicker1">Capture your face!</button>
     </div>
 
     <canvas id="canvas" width="500" height="375"></canvas>
-          
     <button class="btn1" id="clicker2">판별하기</button>
   </div>
 </div>
@@ -40,9 +37,8 @@
   
   <form method="post" action="upload" enctype="multipart/form-data"></form>
 
-    <input type="file" name="video1" id="imageFileOpenInput" accept="video/*">
-    <button class="btn1" type="submit">Upload File</button>
-    <button class="btn1" type="reset">다시 올리기</button>
+    <input id="fileupload" type="file" name="fileupload" accept="video/*">
+    <button class="btn1" id="upload-button" onclick="uploadFile()"> Upload </button>
   
   </form>
 </div>
@@ -50,45 +46,6 @@
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <script src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
 <script  src="../static/js/script.js"></script>
-<script>
-  var video = document.querySelector("#videoElement");
-    
-  if (navigator.mediaDevices.getUserMedia) {
-    navigator.mediaDevices.getUserMedia({ video: true })
-      .then(function (stream) {
-        video.srcObject = stream;
-      })
-      .catch(function (err0r) {
-        console.log("Something went wrong!");
-      });
-  }
-  var canvas = document.getElementById('canvas');
-  var context = canvas.getContext('2d');
-  var video = document.querySelector("#videoElement");
-
-  document.getElementById("clicker1").addEventListener("click", function() {
-    context.drawImage(video, 0, 0, 500, 375);
-  });
-
-  document.getElementById("clicker2").addEventListener("click", function() {
-    // get image data as string
-    const imageString = canvas.toDataURL();
-
-    // send image to server
-    fetch('/show_map', {
-      method: "POST",
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers: {
-          "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        imageString: imageString, 
-      }),
-    })
-    window.location.href = "show_map"
-  });
-</script>
 
 
 </body>
