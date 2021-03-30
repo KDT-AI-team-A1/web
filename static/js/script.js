@@ -30,19 +30,30 @@ function sendImg(canvas, url) {
   const imageString = canvas.toDataURL();
 
   // send image to server
-  return fetch('/' + url, {
-    method: "POST",
-    cache: "no-cache",
-    credentials: "same-origin",
-    headers: {
-        "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      imageString: imageString,
-    }),
-  })
-    .then((response) => console.log("response:", response.json()))
-    .catch((error) => console.log("error:", error))
+//  return fetch('/' + url, {
+//    method: "POST",
+//    cache: "no-cache",
+//    credentials: "same-origin",
+//    headers: {
+//        "Content-Type": "application/json",
+//    },
+//    body: JSON.stringify({
+//      imageString: imageString,
+//    }),
+//  })
+//    .then((response) => console.log("response:", response.json()))
+//    .catch((error) => console.log("error:", error))
+
+
+    var url = 'show_map';
+    $.post('/'+url,
+          JSON.stringify({imageString: imageString}),
+          function(data){
+            console.log(data);
+          },
+          "json"
+    );
+
 }
 
 var canvas2 = document.getElementById('canvas2');
