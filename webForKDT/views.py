@@ -1,6 +1,7 @@
 import base64
 import json
 import os
+import cv2
 
 import requests
 from django.http import JsonResponse
@@ -9,6 +10,7 @@ from django.shortcuts import render
 from . import settings
 
 MAX_NM_CNT = 2  # max no mask
+SEC = 10
 
 URL_PREFIX = "http://3.36.161.101:8080/predictions"
 PROJ_MODELS = {1: 'faster_rcnn', 2: 'cascade_rcnn'}
@@ -89,10 +91,71 @@ def alert_no_mask(request):
         result['nm_cntMax'] = MAX_NM_CNT
         return JsonResponse(result)
 
-
 def savevideo(request):
+    file_name = 'test1.mp4'
+    global minute, context
+
     if request.method == "POST":
-        file_name_path = os.path.join(settings.STATICFILES_DIRS[0], 'img/capture_img/test1.mp4')
+        minute = []
+        file_name_path = os.path.join(settings.STATICFILES_DIRS[0], 'video/' + file_name)
         with open(file_name_path, 'wb') as f:
             f.write(request.FILES['file'].read())
-    return render(request, 'index.html')
+    
+        capture_count = video_read(file_name)
+
+        result = []
+        for i in range(capture_count):
+            url = "http://3.36.161.101:8080/predictions/cascade_rcnn"
+            files = open(os.path.join(settings.STATICFILES_DIRS[0], 'img/capture_img/' + 't'+ str(i) +'.jpg'), 'rb').read()
+            r = requests.post(url, data= files)
+
+            r = r.json()
+            result.append(r['classes'])
+            print(result)
+
+        nnCnt, MAX_NN_CNT = 0, 2
+
+        for i in result:
+            print(minute)
+            flag = False
+            if 1 in i:
+                nnCnt += 1
+                if nnCnt >= MAX_NN_CNT:
+                    nnCnt = 0
+                    flag = True
+            else:
+                nnCnt = 0
+            minute.append(flag)
+        
+        context = {'result': list(map(str, minute)), 'sec':SEC}
+    
+    if request.method == "GET":
+        return render(request, 'video.html', context)
+
+
+def video_read(file_name):
+    path = './static/video/test1.mp4'
+    cap = cv2.VideoCapture(path)
+    #width = cap.get(cv2.CAP_PROP_FRAME_WIDTH)
+    #height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
+    # 비디오의 초당 프레임
+    fps = int(cap.get(cv2.CAP_PROP_FPS))
+    #비디오의  전체 프레임 수 
+    frame_count = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+    count = 0
+    frame_sec = fps * SEC
+    capture_count = 0
+    frame_num=0
+
+    while(cap.isOpened):
+        cap.set(1, frame_num) 
+        frame_num += frame_sec
+        ret, frame = cap.read()
+        if ret == False:
+            break
+        file_name_path = 'static/img/capture_img/t'+str(capture_count)+'.jpg'
+        capture_count += 1
+        cv2.imwrite(file_name_path, frame)
+    cap.release()
+
+    return capture_count
