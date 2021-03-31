@@ -23,5 +23,6 @@ urlpatterns = [
     path('index', views.index, name="index"),
     path('show_map', views.show_map, name="show_map"),
     path('savevideo', views.savevideo, name="savevideo"),
+    path('check_no_mask', views.check_no_mask, name="check_no_mask"),
     path('alert_no_mask', views.alert_no_mask, name="alert_no_mask"),
 ]

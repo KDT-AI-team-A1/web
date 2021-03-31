@@ -13,41 +13,35 @@ if (navigator.mediaDevices.getUserMedia) {
 }
 var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
-var video = document.querySelector("#videoElement");
+//var video = document.querySelector("#videoElement");
 
 document.getElementById("clicker1").addEventListener("click", function() {
   context.drawImage(video, 0, 0, 500, 375);
 });
 
 document.getElementById("clicker2").addEventListener("click", function() {
-  var url = "show_map";
-  sendImg(canvas, url);
-  window.location.href = url
-});
-
-function sendImg(canvas, url) {
   // get image data as string
   const imageString = canvas.toDataURL();
 
   // send image to server
-  return fetch('/' + url, {
-    method: "POST",
-    cache: "no-cache",
-    credentials: "same-origin",
-    headers: {
-        "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      imageString: imageString,
-    }),
-  })
-    .then((response) => console.log("response:", response.json()))
-    .catch((error) => console.log("error:", error))
-}
+  let url = "check_no_mask";
+  $.post('/'+url,
+        JSON.stringify({imageString: imageString}),
+        function(data){
+          console.log(data);
+          alert(data.msg);
+          if (data.url) {
+            window.location.href = data.url
+          }
+        },
+        "json"
+  )
+});
+
 
 var canvas2 = document.getElementById('canvas2');
 var context2 = canvas2.getContext('2d');
-var video2 = document.querySelector("#videoElement2");
+//var video2 = document.querySelector("#videoElement2");
 var captureTime = 3000;
 
 document.getElementById("clicker3").addEventListener("click", function() {
@@ -56,7 +50,7 @@ document.getElementById("clicker3").addEventListener("click", function() {
 
     const imageString = canvas2.toDataURL();
 
-    var url = 'alert_no_mask';
+    let url = 'alert_no_mask';
     $.post('/'+url,
           JSON.stringify({imageString: imageString}),
           function(data){
