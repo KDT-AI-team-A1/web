@@ -20,41 +20,52 @@
 </div>
 
 <div class="web-content">
-  <div>
-    <div id="container">
-      <video autoplay="true" id="videoElement"></video>
-    </div>
-    <div style="text-align: center; margin-top: 20px;">
-      <button class="btn1" id="clicker1">Capture your face!</button>
+  <div class="capture-content">
+    <div class="item" id="container" style="text-align: center;">
+      <div class="inner-content" style="align-items: center;">
+        <div class="item">
+          <video autoplay="true" id="videoElement"></video>
+        </div>
+        <div class="item">
+          <button class="btn1" id="clicker1">Capture your face!</button>
+        </div>
+      </div>
     </div>
 
-    <canvas id="canvas" width="500" height="375"></canvas>
-    <button class="btn1" id="clicker2">판별하기</button>
+    <div class="item" id="container" style="text-align: center;">
+      <div class="inner-content" style="align-items: center;">
+        <div class="item">
+          <canvas id="canvas" width="500" height="375"></canvas>
+        </div>
+        <div class="item">
+          <button class="btn1" id="clicker2">판별하기</button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
 <div class="office-content">
-  <form method="post" action="upload" enctype="multipart/form-data"></form>
-    <input id="fileupload" type="file" name="fileupload" accept="video/*">
-    <button class="btn1" id="upload-button" onclick="uploadFile()"> Upload </button>
-  </form>
-
-  <div>
-    <div>
-      <video autoplay="true" id="videoElement2" hidden>
-      </video>
+  <div class="alert-content">
+    <div class="live-content">
+      <div class="cctv-img">
+      </div>
+      <div>
+        <video autoplay="true" id="videoElement2"></video>
+      </div>
     </div>
 
-    <div style="text-align: center; margin-top: 20px;">
+    <div class="item" style="align-items: center; text-align: center;">
+      <canvas id="canvas2" width="500" height="375"></canvas>
+    </div>
+
+    <div class="item" style="text-align: center;">
       <button class="btn1" id="clicker3">START</button>
       <button class="btn1" id="clicker4">END</button>
+      <div id="result-in">
+      </div>
     </div>
-
-    <canvas id="canvas2" width="500" height="375" hidden></canvas>
-
-
   </div>
-
 
 </div>
 <!-- partial -->

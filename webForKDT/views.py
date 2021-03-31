@@ -9,7 +9,7 @@ from django.shortcuts import render
 
 from . import settings
 
-MAX_NM_CNT = 2  # max no mask
+MAX_NM_CNT = 5  # max no mask
 SEC = 10
 
 URL_PREFIX = "http://3.36.161.101:8080/predictions"
