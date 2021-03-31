@@ -127,7 +127,7 @@
 .office-content {
   display: none;
   position: absolute;
-  top: 20vh;
+  top: 10vh;
   min-height: 80vh;
   z-index: -5;
   width: 100%;
@@ -201,10 +201,46 @@
   margin: 0px auto;
   width: 500px;
   height: 375px;
-  border: 10px #333 solid;
+  border: 10px rgb(63, 63, 63) solid;
 }
 #videoElement {
   width: 500px;
   height: 375px;
   background-color: #666;
+}
+
+#videoElement2 {
+  width: 100%;
+  background-color: #666;
+}
+
+.capture-content {
+	display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.inner-content {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 20px;
+  height: 100%;
+}
+
+.alert-content {
+	display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+}
+
+.live-content {
+	display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 20px;
+  border: rgba(184, 121, 77, 0.404) 3px solid;
+}
+
+.cctv-img {
+  background-image: url(../img/cctv.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }

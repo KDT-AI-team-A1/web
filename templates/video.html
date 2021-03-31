@@ -1,0 +1,35 @@
+{{ result }}
+
+<video width="600" id="video1" muted>
+    <source src="../static/video/test1.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+
+<button id="clicker">Play/Pause</button> 
+
+<script> 
+  var vid = document.getElementById("video1"); 
+  
+  document.getElementById("clicker").addEventListener("click", function() {
+    if (vid.paused) {
+      vid.play();
+      alert(vid.duration);
+
+      var idx = 1;
+      startAlert = setInterval(function() {
+        // 이미지 가져오기, 화면 송출
+        
+
+        // 만약 리스트 인덱스가 True일 경우 알림 송출
+
+        
+        // 인덱스 늘려주기
+        idx += 1
+
+      }, {{sec}} * 1000 );
+    }
+    else {
+      vid.pause()
+    }
+  });
+</script>;
