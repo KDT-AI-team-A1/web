@@ -8,8 +8,6 @@ from django.shortcuts import render
 
 from . import settings
 
-# TODO: nm_cnt를 전역변수로 사용하면 안됨!
-nm_cnt = 0  # count no mask
 MAX_NM_CNT = 2  # max no mask
 
 URL_PREFIX = "http://3.36.161.101:8080/predictions"
@@ -71,8 +69,10 @@ def alert_no_mask(request):
         # 받아온 응답을 파싱해서 렌더링하는 부분
         api_result = response.json()
 
-        global nm_cnt, MAX_NM_CNT
+        global MAX_NM_CNT
         result = {'isAlert': False}
+
+        nm_cnt = request.session.get('nm_cnt', 0)
 
         # 마스크 미착용 시 +1 / 최대 횟수 달성 시 안내 방송 / 모두 착용 시 초기화
         if 1 in api_result['classes']:
@@ -82,6 +82,8 @@ def alert_no_mask(request):
                 result['isAlert'] = True
         else:
             nm_cnt = 0
+
+        request.session['nm_cnt'] = nm_cnt
 
         result['nm_cnt'] = nm_cnt
         result['nm_cntMax'] = MAX_NM_CNT
