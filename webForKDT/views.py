@@ -43,12 +43,20 @@ def check_no_mask(request):
 
         # 받은 응답을 파싱하여 결과 분류
         api_result = response.json()
+        print(api_result)
+        result = {}
+        result['classes'] = api_result['classes']
+        result['boxes'] = api_result['boxes']
         if 1 in api_result['classes']:  # 마스크 안쓴 값 (1) 이 리스트에 있을 경우
-            return JsonResponse({'msg': '마스크 미착용하셨습니다. 가까운 약국 및 편의점 목록 페이지로 이동합니다.', 'url': 'show_map'})
+            result['msg'] = '마스크 미착용하셨습니다. 가까운 약국 및 편의점 목록 페이지로 이동합니다.'
+            result['url'] = 'show_map'
+            return JsonResponse(result)
         elif len(api_result['classes']) == 0:  # 아무 얼굴도 인식이 안된 경우
-            return JsonResponse({'msg': '얼굴 인식 불가능'})
+            result['msg'] = '얼굴 인식 불가능'
+            return JsonResponse(result)
         else:  # 마스크를 썼을 경우
-            return JsonResponse({'msg': '마스크 착용'})
+            result['msg'] = '마스크 착용하셨습니다.'
+            return JsonResponse(result)
 
 
 def alert_no_mask(request):
@@ -89,6 +97,8 @@ def alert_no_mask(request):
 
         result['nm_cnt'] = nm_cnt
         result['nm_cntMax'] = MAX_NM_CNT
+        result['boxes'] = api_result['boxes']
+        result['classes'] = api_result['classes']
         return JsonResponse(result)
 
 def savevideo(request):

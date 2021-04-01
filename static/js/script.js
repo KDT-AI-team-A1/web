@@ -28,7 +28,11 @@ document.getElementById("clicker2").addEventListener("click", function() {
         JSON.stringify({imageString: imageString}),
         function(data){
           console.log(data);
+
+          bboxDraw(context, data);
+
           alert(data.msg);
+          
           if (data.url) {
             window.location.href = data.url
           }
@@ -39,7 +43,7 @@ document.getElementById("clicker2").addEventListener("click", function() {
 
 var canvas2 = document.getElementById('canvas2');
 var context2 = canvas2.getContext('2d');
-var captureTime = 500;
+var captureTime = 1000;
 
 document.getElementById("clicker3").addEventListener("click", function() {
   startAlert = setInterval(function() {
@@ -54,6 +58,22 @@ document.getElementById("clicker3").addEventListener("click", function() {
             console.log(data);
             const element = document.getElementById('result-in');
             element.innerHTML = '<p>' + '현재 카운트 : ' + data.nm_cnt + '<br> 알람 역치 : ' + data.nm_cntMax + '</p>';
+
+            for(var idx=0; idx < data.boxes.length; idx++) {
+              if (data.classes[idx]) {
+                context2.strokeStyle = 'red';
+              }
+              else {
+                context2.strokeStyle = 'green';
+              }
+              context2.lineWidth = 5;
+              const width1 = data.boxes[idx][2] - data.boxes[idx][0]
+              const hieght1 = data.boxes[idx][3] - data.boxes[idx][1]
+              const x = data.boxes[idx][0]
+              const y = data.boxes[idx][1]
+              context2.strokeRect(x,y,width1,hieght1);
+            }
+
             if (data.isAlert) {
               alert("마스크 미착용 안내방송")
             }
@@ -80,6 +100,23 @@ async function uploadFile() {
   });    
   alert('파일이 성공적으로 업로드되었습니다');
   window.location.href = "savevideo"
+}
+
+function bboxDraw(context, data) {
+  for(var idx=0; idx < data.boxes.length; idx++) {
+    if (data.classes[idx]) {
+      context.strokeStyle = 'red';
+    }
+    else {
+      context.strokeStyle = 'green';
+    }
+    context.lineWidth = 5;
+    const width1 = data.boxes[idx][2] - data.boxes[idx][0]
+    const hieght1 = data.boxes[idx][3] - data.boxes[idx][1]
+    const x = data.boxes[idx][0]
+    const y = data.boxes[idx][1]
+    context.strokeRect(x,y,width1,hieght1);
+  }
 }
 
 var webTitle          = $(".web-title");
