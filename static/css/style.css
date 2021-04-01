@@ -96,6 +96,7 @@
   top: 0;
   right: 0;
   color: #272928;
+  
 }
 .web-title h1,
 .office-title h1 {
@@ -128,7 +129,7 @@
   display: none;
   position: absolute;
   top: 10vh;
-  min-height: 80vh;
+  min-height: 90%;
   z-index: -5;
   width: 100%;
   padding: 10%;
